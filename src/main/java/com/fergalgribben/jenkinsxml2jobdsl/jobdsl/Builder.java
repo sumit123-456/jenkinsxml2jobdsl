@@ -57,11 +57,16 @@ public class Builder {
 	}
 	
 	public Builder createConfigureBlock(){
-		builderStringBuffer.append("configure").append(CLOSURE_OPENING_PARENS).append(CHARACTER_SPACING).append(StringUtils.cleanupParentName(Parser.getProjectType())).append(CHARACTER_SPACING).append(ROCKET).append(LINE_ENDING);
-		
-		builderStringBuffer.append(ConfigureBlock.getConfigureBlock());
-		
-		closeClosure();
+		String configureBlockContents = ConfigureBlock.getConfigureBlock();
+
+		if (!configureBlockContents.trim().isEmpty()){
+			builderStringBuffer.append("configure").append(CLOSURE_OPENING_PARENS).append(CHARACTER_SPACING).append(StringUtils.cleanupParentName(Parser.getProjectType())).append(CHARACTER_SPACING).append(ROCKET).append(LINE_ENDING);
+			
+			builderStringBuffer.append(configureBlockContents);
+			
+			closeClosure();
+		}
+
 		return this;
 	}
 	

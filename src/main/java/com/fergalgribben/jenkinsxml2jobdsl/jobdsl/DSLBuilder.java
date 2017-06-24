@@ -14,7 +14,7 @@ public class DSLBuilder {
 	 */
 	public static String build(final Project project, final String name){
 		final Builder builder = new Builder();
-		project.setName(name);
+		project.setName(name+"_converted");
 		project.build(builder);
 		final String dslScript = StringUtils.print(builder);
 		return dslScript;
