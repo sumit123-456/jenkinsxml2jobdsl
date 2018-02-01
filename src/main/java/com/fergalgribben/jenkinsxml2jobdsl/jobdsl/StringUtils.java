@@ -21,6 +21,7 @@ public class StringUtils {
 	public static String urlEncode(String stringToEncode){
 		try {
 			stringToEncode = URLEncoder.encode(stringToEncode, "UTF-8");
+			stringToEncode = stringToEncode.replaceAll("%2F", "/");
 			stringToEncode = stringToEncode.replace("+", "%20");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
