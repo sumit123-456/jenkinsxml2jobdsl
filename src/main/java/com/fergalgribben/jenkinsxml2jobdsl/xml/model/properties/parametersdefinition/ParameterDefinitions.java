@@ -37,9 +37,11 @@ public class ParameterDefinitions implements Buildable{
 	@Override
 	public void build(Builder builder) {
 		builder.create("parameters").openClosure();
-		
-		for (Buildable parameter : elements){
-			parameter.build(builder);
+
+		if (elements != null) {
+			for (Buildable parameter : elements) {
+				parameter.build(builder);
+			}
 		}
 		
 		builder.closeClosure();

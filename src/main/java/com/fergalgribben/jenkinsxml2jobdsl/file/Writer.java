@@ -5,21 +5,21 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 public class Writer {
-	
-	private static final String JOB_DRIECTORY = "jobs";
-	
-	private static void makeJobsDirectory(){
-		File dir = new File(JOB_DRIECTORY);
-		if (!dir.exists()){
-			dir.mkdirs();
-		}
-	}
 
-	public static void writeToFile(final String file, final String contents) throws FileNotFoundException{
-		makeJobsDirectory();
-		System.out.println("Writing "+JOB_DRIECTORY+"/"+file+".groovy");
-		PrintWriter out = new PrintWriter(JOB_DRIECTORY+"/"+file+".groovy");
-		out.write(contents);
-		out.close();
-	}
+    private static final String JOB_DRIECTORY = "jobs";
+
+    private static PrintWriter makeWriter(final String filepath) throws FileNotFoundException {
+        File file = new File(JOB_DRIECTORY + "/" + filepath + ".groovy");
+        file.getParentFile().mkdirs();
+
+        return new PrintWriter(file);
+    }
+
+    public static void writeToFile(final String filepath, final String contents) throws FileNotFoundException {
+        System.out.println("Writing " + JOB_DRIECTORY + "/" + filepath + ".groovy");
+
+        PrintWriter out = makeWriter(filepath);
+        out.write(contents);
+        out.close();
+    }
 }
