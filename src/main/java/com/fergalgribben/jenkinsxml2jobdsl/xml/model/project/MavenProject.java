@@ -32,8 +32,10 @@ public class MavenProject extends BaseProject{
 		builder.createMethod("goals").withStringParameter(goals).endMethod();
 		builder.createMethod("mavenOpts").withStringParameter(mavenOpts).endMethod();
 		builder.createMethod("incrementalBuild").withBooleanParameter(incrementalBuild).endMethod();
-		
-		localRepository.build(builder);
+
+		if (localRepository != null) {
+			localRepository.build(builder);
+		}
 		
 		builder.createMethod("incrementalBuild").withBooleanParameter(incrementalBuild).endMethod();
 		builder.createMethod("archivingDisabled").withBooleanParameter(archivingDisabled).endMethod();
