@@ -32,12 +32,12 @@ public class ProjectConvertor {
 	 * @throws FileNotFoundException
 	 * @throws JAXBException
 	 */
-	public static void convert(final String jenkinsServer, final String username, final String apiToken, final String jenkinsPort, final String jobName) throws FileNotFoundException, JAXBException{
+	public static void convert(final String jenkinsServer, final String username, final String apiToken, final String jenkinsPort, final String projectName, final String jobName) throws FileNotFoundException, JAXBException{
 		if (convertedProjects.contains(jobName)){
 			return;
 		}
 		
-		Request.fetchConfigXML(jenkinsServer, username, apiToken, jenkinsPort, jobName);
+		Request.fetchConfigXML(jenkinsServer, username, apiToken, jenkinsPort, projectName, jobName);
 		Meta.init();
 		Project project = Parser.configXMLToProject();
 		ConfigureBlock.generate();
@@ -47,7 +47,7 @@ public class ProjectConvertor {
 		
 		if (project.getDownstreamJobs() != null){
 			for (String p : project.getDownstreamJobs()){
-				convert(jenkinsServer, username, apiToken, jenkinsPort, p);
+				convert(jenkinsServer, username, apiToken, jenkinsPort, projectName, p);
 			}
 		}
 	}

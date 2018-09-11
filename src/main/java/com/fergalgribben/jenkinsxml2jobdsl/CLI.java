@@ -24,6 +24,8 @@ public class CLI {
 		options.addOption("a", "apitoken", true, "The api token for the user");
 		options.addOption("j", "jenkins", true, "The Jenkins instance to log in to");
 		options.addOption("p", "port", true, "The port the Jenkins instance is running on");
+		options.addOption("r", "project", true, "The Jenkins project the job(s) exist under");
+
 	}
 
 	/**
@@ -78,9 +80,10 @@ public class CLI {
 		String username = commandLine.getOptionValue("u");
 		String apiToken = commandLine.getOptionValue("a");
 		String port = commandLine.hasOption("p") ? commandLine.getOptionValue("p") : DEFAULT_PORT;
-				 
+
+		String project = commandLine.getOptionValue("r");
 		for (Object jobName : commandLine.getArgList()){
-			ProjectConvertor.convert(server, username, apiToken, port, (String)jobName);
+			ProjectConvertor.convert(server, username, apiToken, port, project, (String)jobName);
 		}
 	}
 	
@@ -88,7 +91,7 @@ public class CLI {
 	 * Print usage of jenkins2dsl
 	 */
 	private void printUsage(){
-		out.println("java -jar jenkins2dsl.jar [-u username -a api-token] -j instance [-p port] job1 job2 ...");
+		out.println("java -jar jenkins2dsl.jar [-u username -a api-token] -j instance [-p port] [-r project] job1 job2 ...");
 		System.exit(0);
 	}
 	

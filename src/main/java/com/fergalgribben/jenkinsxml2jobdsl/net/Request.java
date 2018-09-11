@@ -25,8 +25,8 @@ public class Request {
 	 * @param port
 	 * @param jobName
 	 */
-	public static void fetchConfigXML(final String server, final String username, final String apiToken, final String port, final String jobName){
-		String configXmlLocation = buildLocation(server, port, jobName);
+	public static void fetchConfigXML(final String server, final String username, final String apiToken, final String port, final String projectName, final String jobName){
+		String configXmlLocation = buildLocation(server, port, projectName, jobName);
 		GetMethod getMethod = buildHttpMethod(configXmlLocation);
 		HttpClient client = buildHttpClient(username, apiToken);
 		String xml = executeRequest(getMethod, client);
@@ -99,9 +99,15 @@ public class Request {
 	 * @param jobName the job to pull the config.xml for
 	 * @return
 	 */
-	private static String buildLocation(final String server, final String port, final String jobName){
+	private static String buildLocation(final String server, final String port, final String projectName, final String jobName){
 		StringBuilder jenkinsHost = new StringBuilder(PROTOCOL);
-		jenkinsHost.append(server).append(":").append(port).append("/job/");
+		if (projectName == null) {
+			jenkinsHost.append(server).append(":").append(port).append("/job/");
+
+		} else {
+			jenkinsHost.append(server).append(":").append(port).append("/").append(projectName).append("/job/");
+
+		}
 		jenkinsHost.append(StringUtils.urlEncode(jobName));
 		jenkinsHost.append("/config.xml");
 		return jenkinsHost.toString();
