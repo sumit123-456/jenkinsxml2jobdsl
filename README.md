@@ -36,7 +36,7 @@ cd jenkinsxml2jobdsl
 Run the jar with the following command:
 
 ```
-java -jar build/libs/jenkinsxml2jobdsl.jar -u <jenkins username> -a <jenkins api token> -j <jenkins server> -p <jenkins port> job1 job2 ... jobN
+java -jar build/libs/jenkinsxml2jobdsl.jar [-u <jenkins username>] [-a <jenkins api token>] -j <jenkins server> [-p <jenkins port>] [-r <project name>] job1 job2 ... jobN
 ```
 
 The converter will write the converted Job DSL scripts to the `jobs/` directory
@@ -51,6 +51,7 @@ flag | description
 -a | The API token to use when connecting to the Jenkins instance, accessible via `<jenkins url>/user/<username>/configure`
 -j | The URL of the Jenkins instance to connect to, e.g. myjenkins.myhost.com
 -p | The port on which the Jenkins instance is listening, defaults to 8080
+-r | The project under which the job exists
 
 The converter accepts a list of space-delimited job names as they are displayed under the "Project name" field of the job configuration page in Jenkins
 
